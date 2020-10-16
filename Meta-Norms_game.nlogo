@@ -18,17 +18,16 @@ turtles-own[
 
 to setup
   clear-all
-  set turtlecount turtlenumber  ;; set global variable as slider value
+  set turtlecount 20  ;; set global variable as slider value
   set defections 0              ;; initialize number of defections
-;  set benefit 3
-;  set hurts 1
+
   addturtles turtlecount 0 0 0  ;; create the turtles, and sets the variables randomly
   reset-ticks
   ask turtles [set score 0]     ;; initialize the score
   ask turtles [set label score] ;; initialize the label score
   ask turtles [set selected 0]  ;; initialize the variable selected
   ask turtles [set select 0]    ;; initialize the variable select
-;;   ask turtles [set boldness random 8]
+
 end
 
 to go100                        ;; Procedure to reproduce 100 generations
@@ -123,11 +122,10 @@ end
 to normalize
 
     if random-float 1 < seen? [                                             ;; defines if an observer saw the defector
-      ;; Yes, it saw it
-      ;; It is going to punish?
+
       set punish? random-float 1                                            ;; sets the value of punish variable
       ifelse vengefulness > punish? [                                       ;; compares the vengefulness value to decide whether or not apply the norm
-        ;; It chose to punish
+
         set punishes-count punishes-count + 1                               ;; updates the punishes-count (agent own) counter
         set score score - cost                                              ;; updates the score values of the punisher
         set status "punisher"                                               ;; changes the agent status to punisher
@@ -155,12 +153,11 @@ to metanormalize
 
     if random-float 1 < seen? [                                             ;; defines if an observer saw the tolerant
 
-      ;; Yes, it saw it
-      ;; It is going to punish?
+
       set punish? random-float 1                                            ;; sets the value of punish variable
       if vengefulness  > punish?  [                                         ;; compares the vengefulness value to decide whether or not apply the meta-norm
 
-        ;; It chose to punish
+
         set meta-punishes-count meta-punishes-count + 1                     ;; updates the meta-punishes-count (agent own) counter
         set score score - cost                                              ;; updates the score values of the meta-punisher
 
@@ -222,16 +219,14 @@ to evolution                                                                ;; p
 
 end
 
-to addturtles [num bold venge pts]                                          ;; procedure to create new agents
+to addturtles [num bold venge pts]                                          ;; procedure to create new agents (adapted from http://modelingcommons.org/browse/one_model/4538#model_tabs_browse_procedures)
   create-turtles num[
     ifelse bold = 0[
-      ;;set boldness random 8
       set boldness random-float 1
     ][
      set boldness bold
     ]
     ifelse venge = 0[
-      ;;set vengefulness random 8
       set vengefulness random-float 1
     ][
       set vengefulness venge
@@ -476,21 +471,6 @@ cost
 0
 10
 2.0
-1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-41
-166
-171
-199
-turtlenumber
-turtlenumber
-0
-100
-20.0
 1
 1
 NIL
